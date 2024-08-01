@@ -6,14 +6,14 @@
 from typing import Tuple, Any, List
 
 
-def zoom_array(lst: Tuple[Any, ...], factor: int = 2) -> List:
+def zoom_array(lst: Tuple[Any, ...], factor: int = 2) -> Tuple[Any, ...]:
     """Applying changes"""
 
     zoomed_in: List[Any] = [
         item for item in lst
         for i in range(factor)
     ]
-    return zoomed_in
+    return tuple(zoomed_in)
 
 
 array = (12, 72, 91)
