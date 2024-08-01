@@ -1,5 +1,4 @@
 #!/usr/env python3
-import typing
 """
    Write a type-annotated function
    to_kv that takes a string k
@@ -10,8 +9,9 @@ import typing
    the int/float v and should
    be annotated as a float
 """
+import typing
 
 
 def to_kv(k: str, v: typing.Union[int, float]) -> typing.Tuple[str, float]:
     """Returns a tuple"""
-    return (k, v * v)
+    return (k, v ** 2)
