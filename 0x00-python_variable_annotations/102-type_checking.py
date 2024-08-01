@@ -8,6 +8,7 @@ from typing import Tuple, Any, List
 
 def zoom_array(lst: Tuple[Any, ...], factor: int = 2) -> List:
     """Applying changes"""
+
     zoomed_in: List[Any] = [
         item for item in lst
         for i in range(factor)
