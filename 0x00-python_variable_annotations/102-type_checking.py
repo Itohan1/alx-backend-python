@@ -11,7 +11,7 @@ def zoom_array(lst: Tuple[Any, ...], factor: int = 2) -> Tuple[Any, ...]:
 
     zoomed_in: List[Any] = [
         item for item in lst
-        for i in range(factor)
+        for _ in range(factor)
     ]
     return tuple(zoomed_in)
 
