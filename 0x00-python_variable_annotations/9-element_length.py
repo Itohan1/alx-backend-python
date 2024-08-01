@@ -4,8 +4,8 @@
    parameters and return values
    with the appropriate types
 """
-from typing import Iterable, Sequence, Tuple, List
+import typing
 
 
-def element_length(lst: Iterable[Sequence]) -> List[Tuple[Sequence, int]]:
+def element_length(lst: typing.Iterable[typing.Sequence]) -> typing.List[typing.Tuple[typing.Sequence, int]]:
     return [(i, len(i)) for i in lst]
