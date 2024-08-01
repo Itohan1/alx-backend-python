@@ -6,7 +6,7 @@
 from typing import Tuple, Any, List
 
 
-def zoom_array(lst: Tuple[Any, ...], factor: int = 2) -> Tuple[Any, ...]:
+def zoom_array(lst: Tuple, factor: int = 2) -> Tuple[Any, ...]:
     """Applying changes"""
 
     zoomed_in: List[Any] = [
