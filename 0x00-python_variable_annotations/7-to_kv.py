@@ -9,9 +9,9 @@
    the int/float v and should
    be annotated as a float
 """
-import typing
+from typing import Union, Tuple
 
 
-def to_kv(k: str, v: typing.Union[int, float]) -> typing.Tuple[str, float]:
+def to_kv(k: str, v: Union[int, float]) -> Tuple[str, float]:
     """Returns a tuple"""
-    return (k, float(v ** 2))
+    return (k, v ** 2)
