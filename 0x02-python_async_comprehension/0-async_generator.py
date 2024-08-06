@@ -8,12 +8,12 @@
 
    Use the random module.
 """
-from typing import Iterator
+from typing import Generator
 import random
 import asyncio
 
 
-async def async_generator() -> Iterator[float]:
+async def async_generator() -> Generator[float, None, None]:
     """Using generator"""
 
     for _ in range(10):
