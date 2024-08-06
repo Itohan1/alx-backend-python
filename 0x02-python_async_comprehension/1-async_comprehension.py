@@ -10,13 +10,13 @@
    comprehensing over async_generator,
    then return the 10 random numbers.
 """
-from typing import Generator
+from typing import List
 import asyncio
 async_generator = __import__('0-async_generator').async_generator
 
 
-async def async_comprehension() -> Generator[float, None, None]:
-    """"""
+async def async_comprehension() -> List[float]:
+    """Append results to new list"""
 
     result = []
     async for i in async_generator():
