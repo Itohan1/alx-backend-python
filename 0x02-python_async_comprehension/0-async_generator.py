@@ -19,6 +19,6 @@ async def async_generator() -> Generator[int, None, None]:
     i = 0
     while i < 10:
         await asyncio.sleep(1)
-        random_value = random.uniform(i, 10)
+        random_value = random.uniform(0, 10)
         yield random_value
         i += 1
