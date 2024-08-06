@@ -13,7 +13,7 @@ import random
 import asyncio
 
 
-async def async_generator() -> Iterator[int]:
+async def async_generator() -> Iterator[float]:
     """Using generator"""
 
     for _ in range(10):
