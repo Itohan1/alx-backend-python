@@ -75,6 +75,10 @@ def memoize(fn: Callable) -> Callable:
     return property(memoized)
 
 if __name__ == "__main__":
-    nested_map = {"a": {"b": {"c": 1}}}
-    c = ("a", "b", "c")
-    print(access_nested_map(nested_map, c))
+    class MyClass:
+        @memoize
+        def a_method(self):
+            print("a_method called")
+            return 42
+    my_object = MyClass()
+    print(my_object.a_method)
