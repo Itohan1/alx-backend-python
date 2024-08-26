@@ -13,16 +13,20 @@ class TestAccessNestedMap(unittest.TestCase):
     """write the first unit test for utils.access_nested_map"""
 
     @parameterized.expand([
-            ({"a": 1}, ("a",)),
-            ({"a": {"b": 2}}, ("a",)),
-            ({"a": {"b": 2}}, ("a", "b"))
+        ({"a": 1}, ("a",), 1),
+        ({"a": {"b": 2}}, ("a",), {"b": 2}),
+        ({"a": {"b": 2}}, ("a", "b"), 2)
     ])
     def test_access_nested_map(
-            self, nested_map: Mapping, path: Sequence) -> Any:
-        """"""
+            self, nested_map: Mapping, path: Sequence
+            , expected_result: Any) -> Any:
+        """
+            method to test that the method
+            returns what it is supposed to
+        """
 
         result = access_nested_map(nested_map, path)
-        self.assertEqual()
+        self.assertEqual(result, expected_result)
 
 
 if __name__ == '__main__':

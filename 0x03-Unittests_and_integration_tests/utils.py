@@ -33,10 +33,10 @@ def access_nested_map(nested_map: Mapping, path: Sequence) -> Any:
     1
     """
     for key in path:
+        print(key)
         if not isinstance(nested_map, Mapping):
             raise KeyError(key)
         nested_map = nested_map[key]
-
     return nested_map
 
 
@@ -73,3 +73,8 @@ def memoize(fn: Callable) -> Callable:
         return getattr(self, attr_name)
 
     return property(memoized)
+
+if __name__ == "__main__":
+    nested_map = {"a": {"b": {"c": 1}}}
+    c = ("a", "b", "c")
+    print(access_nested_map(nested_map, c))
