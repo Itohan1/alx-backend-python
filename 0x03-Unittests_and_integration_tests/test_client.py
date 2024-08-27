@@ -8,7 +8,7 @@ from utils import get_json, memoize
 import unittest
 from parameterized import parameterized
 from unittest.mock import patch, Mock, PropertyMock
-from typing import Dict, Optional
+from typing import Dict, Optional, Mapping
 
 
 class TestGithubOrgClient(unittest.TestCase):
@@ -74,7 +74,7 @@ class TestGithubOrgClient(unittest.TestCase):
         ({"license": {"key": "other_license"}}, "my_license", False)
     ])
     def test_has_license(
-            self, repo: Dict,
+            self, repo: Mapping,
             license_key: str, result: bool) -> None:
         """Check for license"""
 
