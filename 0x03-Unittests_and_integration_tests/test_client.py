@@ -4,10 +4,10 @@
     client.GithubOrgClient class
 """
 from client import GithubOrgClient
-from utils import get_json
+from utils import get_json, memoize
 import unittest
 from parameterized import parameterized
-from unittest.mock import patch, Mock
+from unittest.mock import patch, Mock, PropertyMock
 
 
 class TestGithubOrgClient(unittest.TestCase):
@@ -33,6 +33,21 @@ class TestGithubOrgClient(unittest.TestCase):
         mock_get.assert_called_once_with(
                 f"https://api.github.com/orgs/{org_value}")
         self.assertEqual(result, {"name": org_value})
+
+    def test_public_repos_url(self):
+        """Mocking a property"""
+
+        with patch.object(
+                GithubOrgClient, 'org', new_callable=PropertyMock
+                ) as mock_last:
+            mock_last.return_value = {
+                    'repos_url':
+                    'https://api.github.com/orgs/google/repos'
+            }
+            obj = GithubOrgClient("google")
+            result = obj._public_repos_url
+            expected = 'https://api.github.com/orgs/google/repos'
+            self.assertEqual(result, expected)
 
 
 if __name__ == "__main__":
