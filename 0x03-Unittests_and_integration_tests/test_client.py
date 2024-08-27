@@ -8,6 +8,7 @@ from utils import get_json, memoize
 import unittest
 from parameterized import parameterized
 from unittest.mock import patch, Mock, PropertyMock
+from typing import Dict, Optional
 
 
 class TestGithubOrgClient(unittest.TestCase):
@@ -67,6 +68,18 @@ class TestGithubOrgClient(unittest.TestCase):
             result = obj.public_repos()
             expected = ["truth", "ruby-openid-apps-discovery", "autoparse"]
             self.assertEqual(result, expected)
+
+    @parameterized.expand([
+        ({"license": {"key": "my_license"}}, "my_license", True),
+        ({"license": {"key": "other_license"}}, "my_license", False)
+    ])
+    def test_has_license(
+            self, repo: Dict[str, Dict],
+            license_key: str, result: bool) -> None:
+        """Check for license"""
+
+        check = GithubOrgClient.has_license(repo, license_key)
+        self.assertEqual(check, result)
 
 
 if __name__ == "__main__":
