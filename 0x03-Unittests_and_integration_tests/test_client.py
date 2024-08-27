@@ -58,7 +58,10 @@ class TestGithubOrgClient(unittest.TestCase):
                 {"name": "ruby-openid-apps-discovery"},
                 {"name": "autoparse"}
         ]
-        with patch.object(GithubOrgClient, '_public_repos_url', new_callable=PropertyMock) as mock_last:
+        with patch.object(
+                GithubOrgClient, '_public_repos_url',
+                new_callable=PropertyMock
+                ) as mock_last:
             obj = GithubOrgClient("google")
             mock_last.return_value = "https://api.github.com/orgs/google/repos"
             result = obj.public_repos()
