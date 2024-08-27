@@ -78,6 +78,7 @@ class TestGithubOrgClient(unittest.TestCase):
             license_key: str, result: Optional[bool]) -> None:
         """Check for license"""
 
+        client = GithubOrgClient("google")
         check = GithubOrgClient.has_license(repo, license_key)
         self.assertEqual(check, result)
 
