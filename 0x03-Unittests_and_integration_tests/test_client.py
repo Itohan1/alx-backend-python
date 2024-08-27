@@ -123,7 +123,7 @@ class TestIntegrationGithubOrgClient(unittest.TestCase):
             GithubOrgClient, '_public_repos_url',
             new_callable=PropertyMock)
     def test_public_repos_with_license(
-            self, mock: Mock, mock_get_json: Dict
+            self, mock: Mock, mock_get_json: Mock
             ) -> None:
         """Returns the expected results based on the fixtures"""
         mock.return_value = "https://api.github.com/orgs/google/repos"
