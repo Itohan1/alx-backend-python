@@ -75,7 +75,7 @@ class TestGithubOrgClient(unittest.TestCase):
     ])
     def test_has_license(
             self, repo: Dict[str, Dict],
-            license_key: str, result: bool) -> None:
+            license_key: str, result: Optional[bool]) -> None:
         """Check for license"""
 
         check = GithubOrgClient.has_license(repo, license_key)
