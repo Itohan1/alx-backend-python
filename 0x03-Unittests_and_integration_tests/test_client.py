@@ -15,7 +15,7 @@ class TestGithubOrgClient(unittest.TestCase):
 
     @parameterized.expand([
         ("google"),
-        ("org")
+        ("abc")
     ])
     @patch('client.get_json')
     def test_org(self, org_value: str, mock_get: Mock) -> None:
@@ -47,6 +47,22 @@ class TestGithubOrgClient(unittest.TestCase):
             obj = GithubOrgClient("google")
             result = obj._public_repos_url
             expected = 'https://api.github.com/orgs/google/repos'
+            self.assertEqual(result, expected)
+
+    @patch('client.get_json')
+    def test_public_repos(self, mock_first: Mock) -> None:
+        """More patching"""
+
+        mock_first.return_value = [
+                {"name": "truth"},
+                {"name": "ruby-openid-apps-discovery"},
+                {"name": "autoparse"}
+        ]
+        with patch.object(GithubOrgClient, '_public_repos_url', new_callable=PropertyMock) as mock_last:
+            obj = GithubOrgClient("google")
+            mock_last.return_value = "https://api.github.com/orgs/google/repos"
+            result = obj.public_repos()
+            expected = ["truth", "ruby-openid-apps-discovery", "autoparse"]
             self.assertEqual(result, expected)
 
 
