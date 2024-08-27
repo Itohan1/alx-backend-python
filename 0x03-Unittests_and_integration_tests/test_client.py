@@ -83,18 +83,11 @@ class TestGithubOrgClient(unittest.TestCase):
         self.assertEqual(check, result)
 
 
-@parameterized_class([
-    {
-        "org_payload":
-        "https://api.github.com/orgs/google",
-        "repos_payload":
-        "https://api.github.com/orgs/google/repos",
-        "expected_repos":
-        "https://api.github.com/users/google/following{/other_user",
-        "apache2_repos":
-        "https://api.github.com/users/google/received_events"
-    }
-])
+@parameterized_class(
+        ("org_payload", "repos_payload",
+            "expected_repos", "apache2_repos"),
+        TEST_PAYLOAD
+)
 class TestIntegrationGithubOrgClient(unittest.TestCase):
     """Integration test: fixtures"""
 
