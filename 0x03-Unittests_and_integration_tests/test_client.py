@@ -6,9 +6,10 @@
 from client import GithubOrgClient
 from utils import get_json, memoize
 import unittest
-from parameterized import parameterized
+from parameterized import parameterized, parameterized_class
 from unittest.mock import patch, Mock, PropertyMock
-from typing import Dict, Optional, Mapping
+from typing import Dict, Optional, List
+from fixtures import TEST_PAYLOAD
 
 
 class TestGithubOrgClient(unittest.TestCase):
@@ -80,6 +81,49 @@ class TestGithubOrgClient(unittest.TestCase):
 
         check = GithubOrgClient.has_license(repo, license_key)
         self.assertEqual(check, result)
+
+
+@parameterized_class([
+    {
+        "org_payload":
+        "https://api.github.com/orgs/google",
+        "repos_payload":
+        "https://api.github.com/orgs/google/repos",
+        "expected_repos":
+        "https://api.github.com/users/google/following{/other_user",
+        "apache2_repos":
+        "https://api.github.com/users/google/received_events"
+    }
+])
+class TestIntegrationGithubOrgClient(unittest.TestCase):
+    """Integration test: fixtures"""
+
+    @classmethod
+    def setUpClass(cls):
+        """Setting up a class method"""
+
+        cls.get_patcher = patch('requests.get')
+        cls.mock_get = cls.get_patcher.start()
+
+        def get_json_side_effect(url):
+            """Checking if urls are properly set"""
+
+            if url == "https://api.github.com/orgs/google":
+                return cls.org_payload
+            elif url == "https://api.github.com/orgs/google/repos":
+                return cls.repos_payload
+            return {}
+        cls.mock_get.return_value.side_effect = get_json_side_effect
+
+    @classmethod
+    def tearDownClass(cls):
+        """Tearing down a class method"""
+        cls.get_patcher.stop()
+
+    def tear_some(self):
+        """Testing class methods"""
+        self.mock_get.return_value.status_code = 200
+        self.assertEqual(self.mock_get.return_value.status_code, 200)
 
 
 if __name__ == "__main__":
