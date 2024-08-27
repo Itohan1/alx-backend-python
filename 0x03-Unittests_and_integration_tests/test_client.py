@@ -118,6 +118,23 @@ class TestIntegrationGithubOrgClient(unittest.TestCase):
         self.mock_get.return_value.status_code = 200
         self.assertEqual(self.mock_get.return_value.status_code, 200)
 
+    @patch('client.get_json')
+    @patch.object(
+            GithubOrgClient, '_public_repos_url',
+            new_callable=PropertyMock)
+    def test_public_repos_with_license(
+            self, mock: Mock, mock_get_json: Dict
+            ) -> None:
+        """Returns the expected results based on the fixtures"""
+        mock.return_value = "https://api.github.com/orgs/google/repos"
+        mock_get_json.return_value = self.repos_payload
+        client = GithubOrgClient("google")
+        result = client.public_repos(license="apache-2.0")
+        self.assertEqual(result, self.apache2_repos)
+
+        mock.assert_called_once()
+        mock_get_json.assert_called_once()
+
 
 if __name__ == "__main__":
     unittest.main()
